@@ -42,4 +42,25 @@ public class PessoaDao {
         
     }
     
+    public void delete(Pessoa pessoa){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("DELETE FROM pessoa WHERE codPessoa = ?");
+            stmt.setInt(1, pessoa.getCodPessoa()); 
+          
+            
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Excluir: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
+        }
+    
+}
+    
 }
