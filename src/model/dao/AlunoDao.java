@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,6 +75,61 @@ public class AlunoDao {
         }
         
         return alunos;
+        
+    }
+    
+    public List<ArrayList> read2(){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        List<ArrayList> tuplas = new ArrayList<>();
+        
+        try {
+            stmt = con.prepareStatement("SELECT P.codPessoa, P.nomePessoa, A.numAluno, A.nomeCurso FROM pessoa as P inner join aluno as A ON P.codPessoa = A.codPessoa;");
+            rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                ArrayList<String> tupla = new ArrayList();
+                tupla.add(rs.getString("codPessoa"));
+                tupla.add(rs.getString("nomePessoa"));
+                tupla.add(rs.getString("numAluno"));
+                tupla.add(rs.getString("nomeCurso"));
+                tuplas.add(tupla);
+                            
+            }
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }finally {
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt, rs);
+        }
+        
+        return tuplas;
+        
+    }
+    
+    public void delete(Aluno aluno){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("DELETE FROM aluno WHERE codPessoa = ?");
+            stmt.setInt(1, aluno.getCodPessoa()); 
+          
+            
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao Excluir: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
+        }
+        
         
     }
     
