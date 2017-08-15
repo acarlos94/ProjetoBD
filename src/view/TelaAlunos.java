@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.beans.Aluno;
@@ -23,6 +24,7 @@ public class TelaAlunos extends javax.swing.JFrame {
      */
     public TelaAlunos() {
         initComponents();
+        lerTabela();
     }
 
     /**
@@ -222,23 +224,64 @@ public class TelaAlunos extends javax.swing.JFrame {
         aluno.setNomeCurso(jTextFieldCursoAluno.getText());
         aluDao.create(aluno);
         
+        lerTabela();
+        
+        
         
 //        DefaultTableModel dtmAlunos = (DefaultTableModel)jTableTabelaAlunos.getModel();
 //        Object[] dados = {jTextFieldCodAluno.getText(),jTextFieldNomeAluno.getText(),
 //                          jTextFieldNumAluno.getText(), jTextFieldCursoAluno.getText()};
 //        dtmAlunos.addRow(dados);
         
-        
+     
     }//GEN-LAST:event_jButtonSalvarAlunoActionPerformed
 
+    public void lerTabela(){
+        DefaultTableModel modelo = (DefaultTableModel) jTableTabelaAlunos.getModel();
+        modelo.setNumRows(0);
+        AlunoDao adao = new AlunoDao();
+       
+     
+        for (ArrayList a: adao.read2()){
+            modelo.addRow(new Object[]{
+            a.get(0),
+            a.get(1),
+            a.get(2),
+            a.get(3)
+            
+        });
+    }
+    }
+    
     private void jButtonExcluirAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirAlunoActionPerformed
         // TODO add your handling code here:
-        if (jTableTabelaAlunos.getSelectedRow() != -1){
-            DefaultTableModel dtmAlunos = (DefaultTableModel)jTableTabelaAlunos.getModel();
-            dtmAlunos.removeRow(jTableTabelaAlunos.getSelectedRow());           
+//        if (jTableTabelaAlunos.getSelectedRow() != -1){
+//            DefaultTableModel dtmAlunos = (DefaultTableModel)jTableTabelaAlunos.getModel();
+//            dtmAlunos.removeRow(jTableTabelaAlunos.getSelectedRow());           
+//        }else{
+//            JOptionPane.showMessageDialog(null, "Selecione um aluno");
+//        }
+        
+         if (jTableTabelaAlunos.getSelectedRow() != -1){
+           
+            Pessoa pessoa = new Pessoa();
+            PessoaDao pesDao = new PessoaDao();
+            Aluno aluno = new Aluno();
+            AlunoDao aluDao = new AlunoDao();
+
+            pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
+            pesDao.delete(pessoa);
+
+            aluno.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
+            aluDao.delete(aluno);
+            
+            lerTabela();
         }else{
             JOptionPane.showMessageDialog(null, "Selecione um aluno");
         }
+        
+        
+        lerTabela();
         
         
         
@@ -298,6 +341,7 @@ public class TelaAlunos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaAlunos().setVisible(true);
+                
             }
         });
     }
