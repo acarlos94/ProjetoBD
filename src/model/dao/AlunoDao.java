@@ -42,8 +42,7 @@ public class AlunoDao {
         }finally{
             ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
         }
-        
-        
+                
     }
     
     public List<Aluno> read(){
@@ -129,8 +128,30 @@ public class AlunoDao {
         }finally{
             ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
         }
+                
+    }
+    
+    public void update(Aluno aluno){
         
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
         
+        try {
+            stmt = con.prepareStatement("UPDATE aluno SET numAluno = ?, nomeCurso = ? WHERE codPessoa = ?");           
+            //stmt.setInt(1, aluno.getCodPessoa());
+            stmt.setInt(1, aluno.getNumAluno());
+            stmt.setString(2, aluno.getNomeCurso());
+            stmt.setInt(3, aluno.getCodPessoa());
+            
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Atualizado com suceeso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
+        }
+                
     }
     
 }
