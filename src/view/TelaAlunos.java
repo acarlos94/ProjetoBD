@@ -302,10 +302,30 @@ public class TelaAlunos extends javax.swing.JFrame {
     private void jButtonAtualizarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarAlunoActionPerformed
         // TODO add your handling code here:
         if (jTableTabelaAlunos.getSelectedRow() != -1){
-            jTableTabelaAlunos.setValueAt(jTextFieldCodAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 0);
-            jTableTabelaAlunos.setValueAt(jTextFieldNomeAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 1);
-            jTableTabelaAlunos.setValueAt(jTextFieldNumAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 2);
-            jTableTabelaAlunos.setValueAt(jTextFieldCursoAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 3);
+            
+            Pessoa pessoa = new Pessoa();
+            PessoaDao pesDao = new PessoaDao();
+            Aluno aluno = new Aluno();
+            AlunoDao aluDao = new AlunoDao();
+
+            pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
+            pessoa.setNomePessoa(jTextFieldNomeAluno.getText());
+            //pessoa.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
+            pesDao.update(pessoa);
+
+            //aluno.setCodPessoa(pessoa.getCodPessoa());
+            aluno.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
+            aluno.setNomeCurso(jTextFieldCursoAluno.getText());
+            //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
+            aluDao.update(aluno);
+
+            lerTabela();
+            
+//            jTableTabelaAlunos.setValueAt(jTextFieldCodAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 0);
+//            jTableTabelaAlunos.setValueAt(jTextFieldNomeAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 1);
+//            jTableTabelaAlunos.setValueAt(jTextFieldNumAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 2);
+//            jTableTabelaAlunos.setValueAt(jTextFieldCursoAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 3);
+
         }
         
     }//GEN-LAST:event_jButtonAtualizarAlunoActionPerformed
