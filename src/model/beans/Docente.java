@@ -11,17 +11,9 @@ package model.beans;
  */
 public class Docente {
     
-    private int id;
-    private int codPessoa;
+    private int codPessoa;    
+    private int codInstituicao;
     private String nomeDepartamento;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getCodPessoa() {
         return codPessoa;
@@ -29,6 +21,14 @@ public class Docente {
 
     public void setCodPessoa(int codPessoa) {
         this.codPessoa = codPessoa;
+    }
+    
+    public int getCodInstituicao() {
+        return codInstituicao;
+    }
+
+    public void setCodInstituicao(int codInstituicao) {
+        this.codInstituicao = codInstituicao;
     }
 
     public String getNomeDepartamento() {
