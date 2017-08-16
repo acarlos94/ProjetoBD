@@ -42,6 +42,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabelTitulo.setText("PROJETO FUNDAMENTOS DE BANCO DE DADOS");
 
         jButtonAlunos.setText("Alunos");
+        jButtonAlunos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlunosActionPerformed(evt);
+            }
+        });
 
         jButtonDocentes.setText("Docentes");
         jButtonDocentes.addActionListener(new java.awt.event.ActionListener() {
@@ -51,8 +56,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jButtonTrabalhos.setText("Trabalhos");
+        jButtonTrabalhos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTrabalhosActionPerformed(evt);
+            }
+        });
 
         jButtonInstituicao.setText("Instituição");
+        jButtonInstituicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInstituicaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,7 +125,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jButtonDocentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDocentesActionPerformed
         // TODO add your handling code here:
+        TelaDocentes docentes = new TelaDocentes();
+        docentes.setVisible(true);
     }//GEN-LAST:event_jButtonDocentesActionPerformed
+
+    private void jButtonAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlunosActionPerformed
+        // TODO add your handling code here:
+        TelaAlunos alunos = new TelaAlunos();
+        alunos.setVisible(true);
+    }//GEN-LAST:event_jButtonAlunosActionPerformed
+
+    private void jButtonTrabalhosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrabalhosActionPerformed
+        // TODO add your handling code here:
+        TelaTrabalhos trabalhos = new TelaTrabalhos();
+        trabalhos.setVisible(true);
+    }//GEN-LAST:event_jButtonTrabalhosActionPerformed
+
+    private void jButtonInstituicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInstituicaoActionPerformed
+        // TODO add your handling code here:
+        TelaInstituicao instituicao = new TelaInstituicao();
+        instituicao.setVisible(true);
+    }//GEN-LAST:event_jButtonInstituicaoActionPerformed
 
     /**
      * @param args the command line arguments

@@ -96,6 +96,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Alunos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonAlunosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonDocentes">
           <Properties>
@@ -109,11 +112,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Trabalhos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonTrabalhosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonInstituicao">
           <Properties>
             <Property name="text" type="java.lang.String" value="Institui&#xe7;&#xe3;o"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInstituicaoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
