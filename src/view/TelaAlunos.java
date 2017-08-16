@@ -313,7 +313,7 @@ public class TelaAlunos extends javax.swing.JFrame {
             //pessoa.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
             pesDao.update(pessoa);
 
-            //aluno.setCodPessoa(pessoa.getCodPessoa());
+            aluno.setCodPessoa(pessoa.getCodPessoa());
             aluno.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
             aluno.setNomeCurso(jTextFieldCursoAluno.getText());
             //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
