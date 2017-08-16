@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.beans.Aluno;
+import model.beans.Docente;
 import model.beans.Pessoa;
 import model.dao.AlunoDao;
+import model.dao.DocenteDao;
 import model.dao.PessoaDao;
 
 /**
@@ -171,6 +173,11 @@ public class TelaDocentes extends javax.swing.JFrame {
                 jTableTabelaDocentesMouseClicked(evt);
             }
         });
+        jTableTabelaDocentes.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTableTabelaDocentesKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableTabelaDocentes);
 
         javax.swing.GroupLayout jPanelTabelaDocenteLayout = new javax.swing.GroupLayout(jPanelTabelaDocente);
@@ -214,17 +221,17 @@ public class TelaDocentes extends javax.swing.JFrame {
         
         Pessoa pessoa = new Pessoa();
         PessoaDao pesDao = new PessoaDao();
-        Aluno aluno = new Aluno();
-        AlunoDao aluDao = new AlunoDao();
+        Docente docente = new Docente();
+        DocenteDao docDao = new DocenteDao();
         
         pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodDocente.getText()));
         pessoa.setNomePessoa(jTextFieldNomeDocente.getText());      
         pesDao.create(pessoa);
         
-        aluno.setCodPessoa(pessoa.getCodPessoa());
-        aluno.setNumAluno(Integer.parseInt(jTextFieldNumInstituicao.getText()));
-        aluno.setNomeCurso(jTextFieldCursoAluno.getText());
-        aluDao.create(aluno);
+        docente.setCodPessoa(pessoa.getCodPessoa());
+        docente.setCodInstituicao(Integer.parseInt(jTextFieldNumInstituicao.getText()));
+        docente.setNomeDepartamento(jTextFieldCursoAluno.getText());
+        docDao.create(docente);
         
         lerTabela();
         
@@ -241,10 +248,10 @@ public class TelaDocentes extends javax.swing.JFrame {
     public void lerTabela(){
         DefaultTableModel modelo = (DefaultTableModel) jTableTabelaDocentes.getModel();
         modelo.setNumRows(0);
-        AlunoDao adao = new AlunoDao();
+        DocenteDao ddao = new DocenteDao();
        
      
-        for (ArrayList a: adao.read2()){
+        for (ArrayList a: ddao.read2()){
             modelo.addRow(new Object[]{
             a.get(0),
             a.get(1),
@@ -296,7 +303,7 @@ public class TelaDocentes extends javax.swing.JFrame {
             jTextFieldNomeDocente.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 1).toString());
             jTextFieldNumInstituicao.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 2).toString());
             jTextFieldCursoAluno.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 3).toString());
-            
+                          
         }
         
     }//GEN-LAST:event_jTableTabelaDocentesMouseClicked
@@ -331,6 +338,10 @@ public class TelaDocentes extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButtonAtualizarDocenteActionPerformed
+
+    private void jTableTabelaDocentesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableTabelaDocentesKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableTabelaDocentesKeyReleased
 
     /**
      * @param args the command line arguments
