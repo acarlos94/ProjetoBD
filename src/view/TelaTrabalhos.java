@@ -61,7 +61,8 @@ public class TelaTrabalhos extends javax.swing.JFrame {
         jLabelOrientador = new javax.swing.JLabel();
         jTextFieldOrientador = new javax.swing.JTextField();
         jLabelData = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooserDataApresentacao = new com.toedter.calendar.JDateChooser();
+        jLabelCodTrabalhoAtual = new javax.swing.JLabel();
         jPanelTabelaTrabalho = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabelaTrabalhos = new javax.swing.JTable();
@@ -114,16 +115,18 @@ public class TelaTrabalhos extends javax.swing.JFrame {
         jPanelCrudTrabalhoLayout.setHorizontalGroup(
             jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCrudTrabalhoLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
                 .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCrudTrabalhoLayout.createSequentialGroup()
-                        .addGap(100, 100, 100)
+                        .addGap(136, 136, 136)
                         .addComponent(jButtonSalvarTrabalho)
                         .addGap(7, 7, 7)
                         .addComponent(jButtonAtualizarTrabalho)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonExcluirTrabalho))
+                        .addComponent(jButtonExcluirTrabalho)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelCodTrabalhoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelCrudTrabalhoLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCrudTrabalhoLayout.createSequentialGroup()
                                 .addComponent(jLabelOrientador)
@@ -144,19 +147,19 @@ public class TelaTrabalhos extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldNumAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelCrudTrabalhoLayout.createSequentialGroup()
-                                .addComponent(jLabelTituloTrabalho)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldTituloTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelCrudTrabalhoLayout.createSequentialGroup()
                                 .addComponent(jLabelData)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addGap(33, 33, 33))
+                                .addComponent(jDateChooserDataApresentacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanelCrudTrabalhoLayout.createSequentialGroup()
+                                .addComponent(jLabelTituloTrabalho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jTextFieldTituloTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         jPanelCrudTrabalhoLayout.setVerticalGroup(
             jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCrudTrabalhoLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelCrudTrabalhoLayout.createSequentialGroup()
                         .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,13 +183,14 @@ public class TelaTrabalhos extends javax.swing.JFrame {
                             .addComponent(jLabelOrientador)
                             .addComponent(jTextFieldOrientador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelData)))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jDateChooserDataApresentacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonSalvarTrabalho)
                     .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonAtualizarTrabalho)
-                        .addComponent(jButtonExcluirTrabalho)))
+                        .addComponent(jButtonExcluirTrabalho)
+                        .addComponent(jLabelCodTrabalhoAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -195,8 +199,7 @@ public class TelaTrabalhos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Título", "Data Apresentação", "Orientador", "Número do aluno", "CodPessoaAluno"
-
+                "Código", "Título", "Data da apresentação", "Código aluno", "Número aluno", "Código orientador"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -207,6 +210,7 @@ public class TelaTrabalhos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableTabelaTrabalhos.getTableHeader().setReorderingAllowed(false);
         jTableTabelaTrabalhos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableTabelaTrabalhosMouseClicked(evt);
@@ -266,7 +270,7 @@ public class TelaTrabalhos extends javax.swing.JFrame {
         trabalho.setCodPessoaAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
         trabalho.setCodPessoaOrientador(Integer.parseInt(jTextFieldOrientador.getText()));
         trabalho.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
-        trabalho.setDataDefesa(jDateChooser1.getDate());
+        trabalho.setDataDefesa(jDateChooserDataApresentacao.getDate());
 //trabalho.setDataDefesa(new java.util.Date());
         
         coOrientacao.setCodPessoa(Integer.parseInt(jTextFieldOrientador.getText()));
@@ -336,23 +340,20 @@ public class TelaTrabalhos extends javax.swing.JFrame {
     private void jButtonAtualizarTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarTrabalhoActionPerformed
         // TODO add your handling code here:
         if (jTableTabelaTrabalhos.getSelectedRow() != -1) {
-
-            Pessoa pessoa = new Pessoa();
-            PessoaDao pesDao = new PessoaDao();
-            Aluno aluno = new Aluno();
-            AlunoDao aluDao = new AlunoDao();
-
-            pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodTrabalho.getText()));
-            pessoa.setNomePessoa(jTextFieldTituloTrabalho.getText());
-            //pessoa.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
-            pesDao.update(pessoa);
-
-            //aluno.setCodPessoa(pessoa.getCodPessoa());
-            aluno.setNumAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
-            aluno.setNomeCurso(jTextFieldNumAluno.getText());
-            //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
-            aluDao.update(aluno);
-
+            
+            TrabalhoConclusao trabalho = new TrabalhoConclusao();
+            TrabalhosDao trabDao = new TrabalhosDao();
+            
+            trabalho.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
+            trabalho.setTitulo(jTextFieldTituloTrabalho.getText());
+            trabalho.setCodPessoaAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
+            trabalho.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
+            trabalho.setCodPessoaOrientador(Integer.parseInt(jTextFieldOrientador.getText()));
+            trabalho.setDataDefesa(jDateChooserDataApresentacao.getDate());
+            int codigo = Integer.parseInt(jLabelCodTrabalhoAtual.getText());
+            
+            trabDao.update(trabalho, codigo);
+           
             lerTabela();
 
 //            jTableTabelaAlunos.setValueAt(jTextFieldCodAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 0);
@@ -372,10 +373,11 @@ public class TelaTrabalhos extends javax.swing.JFrame {
         if (jTableTabelaTrabalhos.getSelectedRow() != -1) {
             jTextFieldCodTrabalho.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 0).toString());
             jTextFieldTituloTrabalho.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 1).toString());
-            jTextFieldCodAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 5).toString());
+            jDateChooserDataApresentacao.setDate((java.util.Date) jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),2));
+            jTextFieldCodAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 3).toString());
             jTextFieldNumAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 4).toString());
-            jTextFieldOrientador.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),3).toString());
-            //jDateChooser1.setDate(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),4).toString());
+            jTextFieldOrientador.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),5).toString());      
+            jLabelCodTrabalhoAtual.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 0).toString());
         }
     }//GEN-LAST:event_jTableTabelaTrabalhosMouseClicked
 
@@ -422,8 +424,9 @@ public class TelaTrabalhos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAtualizarTrabalho;
     private javax.swing.JButton jButtonExcluirTrabalho;
     private javax.swing.JButton jButtonSalvarTrabalho;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooserDataApresentacao;
     private javax.swing.JLabel jLabelCodAluno;
+    private javax.swing.JLabel jLabelCodTrabalhoAtual;
     private javax.swing.JLabel jLabelCodigoTrabalho;
     private javax.swing.JLabel jLabelData;
     private javax.swing.JLabel jLabelNumAluno;

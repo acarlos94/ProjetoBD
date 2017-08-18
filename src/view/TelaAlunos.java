@@ -48,6 +48,7 @@ public class TelaAlunos extends javax.swing.JFrame {
         jButtonSalvarAluno = new javax.swing.JButton();
         jButtonAtualizarAluno = new javax.swing.JButton();
         jButtonExcluirAluno = new javax.swing.JButton();
+        jLabelCodAlunoAtual = new javax.swing.JLabel();
         jPanelTabelaAluno = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabelaAlunos = new javax.swing.JTable();
@@ -115,7 +116,9 @@ public class TelaAlunos extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addComponent(jButtonAtualizarAluno)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonExcluirAluno)))
+                        .addComponent(jButtonExcluirAluno)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelCodAlunoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(43, 43, 43))
         );
         jPanelCrudAlunoLayout.setVerticalGroup(
@@ -144,7 +147,8 @@ public class TelaAlunos extends javax.swing.JFrame {
                     .addComponent(jButtonSalvarAluno)
                     .addGroup(jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonAtualizarAluno)
-                        .addComponent(jButtonExcluirAluno)))
+                        .addComponent(jButtonExcluirAluno)
+                        .addComponent(jLabelCodAlunoAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -294,6 +298,7 @@ public class TelaAlunos extends javax.swing.JFrame {
             jTextFieldNomeAluno.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 1).toString());
             jTextFieldNumAluno.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 2).toString());
             jTextFieldCursoAluno.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 3).toString());
+            jLabelCodAlunoAtual.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0).toString());
             
         }
         
@@ -311,13 +316,14 @@ public class TelaAlunos extends javax.swing.JFrame {
             pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
             pessoa.setNomePessoa(jTextFieldNomeAluno.getText());
             //pessoa.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
-            pesDao.update(pessoa);
+            int codigo = Integer.parseInt(jLabelCodAlunoAtual.getText());
 
             aluno.setCodPessoa(pessoa.getCodPessoa());
             aluno.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
             aluno.setNomeCurso(jTextFieldCursoAluno.getText());
             //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
             aluDao.update(aluno);
+            pesDao.update(pessoa, codigo);
 
             lerTabela();
             
@@ -370,6 +376,7 @@ public class TelaAlunos extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAtualizarAluno;
     private javax.swing.JButton jButtonExcluirAluno;
     private javax.swing.JButton jButtonSalvarAluno;
+    private javax.swing.JLabel jLabelCodAlunoAtual;
     private javax.swing.JLabel jLabelCodigoAluno;
     private javax.swing.JLabel jLabelCursoAluno;
     private javax.swing.JLabel jLabelNomeAluno;

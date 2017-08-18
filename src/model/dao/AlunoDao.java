@@ -36,7 +36,7 @@ public class AlunoDao {
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com suceeso!");
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar: "+ex);
         }finally{
@@ -145,12 +145,40 @@ public class AlunoDao {
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Atualizado com suceeso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar: "+ex);
         }finally{
             ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
         }
+                
+    }
+    
+    public Aluno pesquisarAluno(int codigo, int numero){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM aluno WHERE codPessoa = ?, numAluno = ?");
+            stmt.setInt(1, codigo);
+            stmt.setInt(2, numero);            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                Aluno aluno = new Aluno();
+                aluno.setCodPessoa(rs.getInt("codPessoa"));
+                aluno.setNumAluno(rs.getInt("numAluno"));
+                aluno.setNomeCurso(rs.getString("nomeCurso"));
+                return aluno;
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Aluno não encontrado. " +ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt, rs);
+        }
+        return null;
                 
     }
     

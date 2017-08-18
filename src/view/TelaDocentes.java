@@ -46,10 +46,11 @@ public class TelaDocentes extends javax.swing.JFrame {
         jLabelNomeDocente = new javax.swing.JLabel();
         jLabelDepartamento = new javax.swing.JLabel();
         jTextFieldNomeDocente = new javax.swing.JTextField();
-        jTextFieldCursoAluno = new javax.swing.JTextField();
+        jTextFieldNomeDepartamento = new javax.swing.JTextField();
         jButtonSalvarDocente = new javax.swing.JButton();
         jButtonAtualizarDocente = new javax.swing.JButton();
         jButtonExcluirDocente = new javax.swing.JButton();
+        jLabelCodDocenteAtual = new javax.swing.JLabel();
         jPanelTabelaDocente = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabelaDocentes = new javax.swing.JTable();
@@ -109,7 +110,7 @@ public class TelaDocentes extends javax.swing.JFrame {
                             .addGroup(jPanelCrudDocenteLayout.createSequentialGroup()
                                 .addComponent(jLabelDepartamento)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldCursoAluno))
+                                .addComponent(jTextFieldNomeDepartamento))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelCrudDocenteLayout.createSequentialGroup()
                                 .addComponent(jLabelNomeDocente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
@@ -120,7 +121,9 @@ public class TelaDocentes extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addComponent(jButtonAtualizarDocente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonExcluirDocente)))
+                        .addComponent(jButtonExcluirDocente)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelCodDocenteAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(22, 22, 22))
         );
         jPanelCrudDocenteLayout.setVerticalGroup(
@@ -142,13 +145,18 @@ public class TelaDocentes extends javax.swing.JFrame {
                             .addComponent(jLabelNumInstituicao)
                             .addGroup(jPanelCrudDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabelDepartamento)
-                                .addComponent(jTextFieldCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(21, 21, 21)
-                .addGroup(jPanelCrudDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonSalvarDocente)
-                    .addGroup(jPanelCrudDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonAtualizarDocente)
-                        .addComponent(jButtonExcluirDocente)))
+                                .addComponent(jTextFieldNomeDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(jPanelCrudDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelCrudDocenteLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanelCrudDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonSalvarDocente)
+                            .addGroup(jPanelCrudDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButtonAtualizarDocente)
+                                .addComponent(jButtonExcluirDocente))))
+                    .addGroup(jPanelCrudDocenteLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelCodDocenteAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -230,7 +238,7 @@ public class TelaDocentes extends javax.swing.JFrame {
         
         docente.setCodPessoa(pessoa.getCodPessoa());
         docente.setCodInstituicao(Integer.parseInt(jTextFieldNumInstituicao.getText()));
-        docente.setNomeDepartamento(jTextFieldCursoAluno.getText());
+        docente.setNomeDepartamento(jTextFieldNomeDepartamento.getText());
         docDao.create(docente);
         
         lerTabela();
@@ -302,7 +310,8 @@ public class TelaDocentes extends javax.swing.JFrame {
             jTextFieldCodDocente.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 0).toString());
             jTextFieldNomeDocente.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 1).toString());
             jTextFieldNumInstituicao.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 2).toString());
-            jTextFieldCursoAluno.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 3).toString());
+            jTextFieldNomeDepartamento.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 3).toString());
+            jLabelCodDocenteAtual.setText(jTableTabelaDocentes.getValueAt(jTableTabelaDocentes.getSelectedRow(), 0).toString());
                           
         }
         
@@ -314,19 +323,22 @@ public class TelaDocentes extends javax.swing.JFrame {
             
             Pessoa pessoa = new Pessoa();
             PessoaDao pesDao = new PessoaDao();
-            Aluno aluno = new Aluno();
-            AlunoDao aluDao = new AlunoDao();
+            Docente docente = new Docente();
+            DocenteDao docDao = new DocenteDao();
 
             pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodDocente.getText()));
             pessoa.setNomePessoa(jTextFieldNomeDocente.getText());
             //pessoa.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
-            pesDao.update(pessoa);
+            
 
-            //aluno.setCodPessoa(pessoa.getCodPessoa());
-            aluno.setNumAluno(Integer.parseInt(jTextFieldNumInstituicao.getText()));
-            aluno.setNomeCurso(jTextFieldCursoAluno.getText());
+            docente.setCodPessoa(pessoa.getCodPessoa());
+            //docente.setNumAluno(Integer.parseInt(jTextFieldNumInstituicao.getText()));
+            docente.setNomeDepartamento(jTextFieldNomeDepartamento.getText());
             //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
-            aluDao.update(aluno);
+            int codigo = Integer.parseInt(jLabelCodDocenteAtual.getText());
+            
+            docDao.update(docente);
+            pesDao.update(pessoa, codigo);
 
             lerTabela();
             
@@ -384,6 +396,7 @@ public class TelaDocentes extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAtualizarDocente;
     private javax.swing.JButton jButtonExcluirDocente;
     private javax.swing.JButton jButtonSalvarDocente;
+    private javax.swing.JLabel jLabelCodDocenteAtual;
     private javax.swing.JLabel jLabelCodigoDocente;
     private javax.swing.JLabel jLabelDepartamento;
     private javax.swing.JLabel jLabelNomeDocente;
@@ -393,7 +406,7 @@ public class TelaDocentes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTabelaDocentes;
     private javax.swing.JTextField jTextFieldCodDocente;
-    private javax.swing.JTextField jTextFieldCursoAluno;
+    private javax.swing.JTextField jTextFieldNomeDepartamento;
     private javax.swing.JTextField jTextFieldNomeDocente;
     private javax.swing.JTextField jTextFieldNumInstituicao;
     // End of variables declaration//GEN-END:variables
