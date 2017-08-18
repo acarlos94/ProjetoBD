@@ -5,20 +5,30 @@
  */
 package view;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import com.toedter.calendar.JTextFieldDateEditor;
 import model.beans.Aluno;
+import model.beans.CoOrientacao;
 import model.beans.Pessoa;
+import model.beans.TrabalhoConclusao;
 import model.dao.AlunoDao;
+import model.dao.CoOrientacaoDao;
 import model.dao.PessoaDao;
+import model.dao.TrabalhosDao;
 
 /**
  *
  * @author Antonio
  */
 public class TelaTrabalhos extends javax.swing.JFrame {
-
+        private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     /**
      * Creates new form TelaAlunos
      */
@@ -185,7 +195,8 @@ public class TelaTrabalhos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Título", "Código do aluno", "Número do aluno", "Orientador", "Data da Apresentação"
+                "Código", "Título", "Data Apresentação", "Orientador", "Número do aluno", "CodPessoaAluno"
+
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -211,9 +222,7 @@ public class TelaTrabalhos extends javax.swing.JFrame {
         );
         jPanelTabelaTrabalhoLayout.setVerticalGroup(
             jPanelTabelaTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTabelaTrabalhoLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -223,9 +232,9 @@ public class TelaTrabalhos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelTabelaTrabalho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelCrudTrabalho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jPanelCrudTrabalho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelTabelaTrabalho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,50 +252,57 @@ public class TelaTrabalhos extends javax.swing.JFrame {
 
     private void jButtonSalvarTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarTrabalhoActionPerformed
         // TODO add your handling code here:
+//        String data = jDateChooser1.toString();
+//        java.util.Date parsed = sdf.parse(data);
+//	Date sql = new Date(parsed.getTime());
+        TrabalhoConclusao trabalho = new TrabalhoConclusao();
+        TrabalhosDao tdao = new TrabalhosDao();
         
-        Pessoa pessoa = new Pessoa();
-        PessoaDao pesDao = new PessoaDao();
-        Aluno aluno = new Aluno();
-        AlunoDao aluDao = new AlunoDao();
+        CoOrientacao coOrientacao = new CoOrientacao();
+        CoOrientacaoDao coDao = new CoOrientacaoDao();
+
+        trabalho.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
+        trabalho.setTitulo(jTextFieldTituloTrabalho.getText());
+        trabalho.setCodPessoaAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
+        trabalho.setCodPessoaOrientador(Integer.parseInt(jTextFieldOrientador.getText()));
+        trabalho.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
+        trabalho.setDataDefesa(jDateChooser1.getDate());
+//trabalho.setDataDefesa(new java.util.Date());
         
-        pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodTrabalho.getText()));
-        pessoa.setNomePessoa(jTextFieldTituloTrabalho.getText());      
-        pesDao.create(pessoa);
+        coOrientacao.setCodPessoa(Integer.parseInt(jTextFieldOrientador.getText()));
+        coOrientacao.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
+        tdao.create(trabalho);
+        coDao.create(coOrientacao);
+
         
-        aluno.setCodPessoa(pessoa.getCodPessoa());
-        aluno.setNumAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
-        aluno.setNomeCurso(jTextFieldNumAluno.getText());
-        aluDao.create(aluno);
         
         lerTabela();
-        
-        
-        
+
 //        DefaultTableModel dtmAlunos = (DefaultTableModel)jTableTabelaAlunos.getModel();
 //        Object[] dados = {jTextFieldCodAluno.getText(),jTextFieldNomeAluno.getText(),
 //                          jTextFieldNumAluno.getText(), jTextFieldCursoAluno.getText()};
 //        dtmAlunos.addRow(dados);
-        
-     
+
     }//GEN-LAST:event_jButtonSalvarTrabalhoActionPerformed
 
-    public void lerTabela(){
+    public void lerTabela() {
         DefaultTableModel modelo = (DefaultTableModel) jTableTabelaTrabalhos.getModel();
         modelo.setNumRows(0);
-        AlunoDao adao = new AlunoDao();
-       
-     
-        for (ArrayList a: adao.read2()){
+        TrabalhosDao tdao = new TrabalhosDao();
+
+        for (ArrayList a : tdao.read2()) {
             modelo.addRow(new Object[]{
-            a.get(0),
-            a.get(1),
-            a.get(2),
-            a.get(3)
-            
-        });
+                a.get(0),
+                a.get(1),
+                a.get(2),
+                a.get(3),
+                a.get(4),
+                a.get(5)
+
+            });
+        }
     }
-    }
-    
+
     private void jButtonExcluirTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirTrabalhoActionPerformed
         // TODO add your handling code here:
 //        if (jTableTabelaAlunos.getSelectedRow() != -1){
@@ -295,48 +311,32 @@ public class TelaTrabalhos extends javax.swing.JFrame {
 //        }else{
 //            JOptionPane.showMessageDialog(null, "Selecione um aluno");
 //        }
-        
-         if (jTableTabelaTrabalhos.getSelectedRow() != -1){
-           
-            Pessoa pessoa = new Pessoa();
-            PessoaDao pesDao = new PessoaDao();
-            Aluno aluno = new Aluno();
-            AlunoDao aluDao = new AlunoDao();
 
-            pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodTrabalho.getText()));
-            pesDao.delete(pessoa);
-
-            aluno.setCodPessoa(Integer.parseInt(jTextFieldCodTrabalho.getText()));
-            aluDao.delete(aluno);
+        if (jTableTabelaTrabalhos.getSelectedRow() != -1) {
             
+            TrabalhoConclusao trabalho = new TrabalhoConclusao();
+            TrabalhosDao tDao = new TrabalhosDao();
+            
+
+            
+            trabalho.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
+            tDao.delete(trabalho);
+            
+
             lerTabela();
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Selecione um aluno");
         }
-        
-        
-        lerTabela();
-        
-        
-        
-    }//GEN-LAST:event_jButtonExcluirTrabalhoActionPerformed
 
-    private void jTableTabelaTrabalhosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTabelaTrabalhosMouseClicked
-        // TODO add your handling code here:
-        if (jTableTabelaTrabalhos.getSelectedRow() != -1){
-            jTextFieldCodTrabalho.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 0).toString());
-            jTextFieldTituloTrabalho.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 1).toString());
-            jTextFieldCodAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 2).toString());
-            jTextFieldNumAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 3).toString());
-            
-        }
-        
-    }//GEN-LAST:event_jTableTabelaTrabalhosMouseClicked
+        lerTabela();
+
+
+    }//GEN-LAST:event_jButtonExcluirTrabalhoActionPerformed
 
     private void jButtonAtualizarTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarTrabalhoActionPerformed
         // TODO add your handling code here:
-        if (jTableTabelaTrabalhos.getSelectedRow() != -1){
-            
+        if (jTableTabelaTrabalhos.getSelectedRow() != -1) {
+
             Pessoa pessoa = new Pessoa();
             PessoaDao pesDao = new PessoaDao();
             Aluno aluno = new Aluno();
@@ -354,19 +354,30 @@ public class TelaTrabalhos extends javax.swing.JFrame {
             aluDao.update(aluno);
 
             lerTabela();
-            
+
 //            jTableTabelaAlunos.setValueAt(jTextFieldCodAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 0);
 //            jTableTabelaAlunos.setValueAt(jTextFieldNomeAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 1);
 //            jTableTabelaAlunos.setValueAt(jTextFieldNumAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 2);
 //            jTableTabelaAlunos.setValueAt(jTextFieldCursoAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 3);
-
         }
-        
+
     }//GEN-LAST:event_jButtonAtualizarTrabalhoActionPerformed
 
     private void jTextFieldOrientadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldOrientadorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldOrientadorActionPerformed
+
+    private void jTableTabelaTrabalhosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTabelaTrabalhosMouseClicked
+        // TODO add your handling code here:
+        if (jTableTabelaTrabalhos.getSelectedRow() != -1) {
+            jTextFieldCodTrabalho.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 0).toString());
+            jTextFieldTituloTrabalho.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 1).toString());
+            jTextFieldCodAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 5).toString());
+            jTextFieldNumAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 4).toString());
+            jTextFieldOrientador.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),3).toString());
+            //jDateChooser1.setDate(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),4).toString());
+        }
+    }//GEN-LAST:event_jTableTabelaTrabalhosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -402,7 +413,7 @@ public class TelaTrabalhos extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new TelaTrabalhos().setVisible(true);
-                
+
             }
         });
     }
