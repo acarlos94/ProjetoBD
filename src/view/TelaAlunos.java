@@ -49,6 +49,7 @@ public class TelaAlunos extends javax.swing.JFrame {
         jButtonAtualizarAluno = new javax.swing.JButton();
         jButtonExcluirAluno = new javax.swing.JButton();
         jLabelCodAlunoAtual = new javax.swing.JLabel();
+        jLabelNumAlunoAtual = new javax.swing.JLabel();
         jPanelTabelaAluno = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabelaAlunos = new javax.swing.JTable();
@@ -92,25 +93,7 @@ public class TelaAlunos extends javax.swing.JFrame {
             jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
                 .addGroup(jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabelCodigoAluno)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldCodAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelNomeAluno)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabelNumAluno)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldNumAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelCursoAluno)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextFieldCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCrudAlunoLayout.createSequentialGroup()
                         .addGap(140, 140, 140)
                         .addComponent(jButtonSalvarAluno)
                         .addGap(7, 7, 7)
@@ -118,7 +101,28 @@ public class TelaAlunos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonExcluirAluno)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabelCodAlunoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabelCodAlunoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelNumAlunoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
+                                .addComponent(jLabelCodigoAluno)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldCodAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelNomeAluno)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
+                                .addComponent(jLabelNumAluno)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldNumAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabelCursoAluno)
+                                .addGap(18, 18, 18)
+                                .addComponent(jTextFieldCursoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(43, 43, 43))
         );
         jPanelCrudAlunoLayout.setVerticalGroup(
@@ -142,14 +146,19 @@ public class TelaAlunos extends javax.swing.JFrame {
                         .addGroup(jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelNumAluno)
                             .addComponent(jLabelCursoAluno))))
-                .addGap(21, 21, 21)
                 .addGroup(jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonSalvarAluno)
-                    .addGroup(jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonAtualizarAluno)
-                        .addComponent(jButtonExcluirAluno)
-                        .addComponent(jLabelCodAlunoAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButtonSalvarAluno)
+                            .addGroup(jPanelCrudAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButtonAtualizarAluno)
+                                .addComponent(jButtonExcluirAluno)
+                                .addComponent(jLabelCodAlunoAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanelCrudAlunoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelNumAlunoAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(22, 22, 22))
         );
 
         jTableTabelaAlunos.setModel(new javax.swing.table.DefaultTableModel(
@@ -183,7 +192,7 @@ public class TelaAlunos extends javax.swing.JFrame {
         );
         jPanelTabelaAlunoLayout.setVerticalGroup(
             jPanelTabelaAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,7 +292,7 @@ public class TelaAlunos extends javax.swing.JFrame {
             pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
             pesDao.delete(pessoa);
 
-            aluno.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
+            aluno.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));           
             aluDao.delete(aluno);
             
             limpaCampos();
@@ -307,6 +316,7 @@ public class TelaAlunos extends javax.swing.JFrame {
             jTextFieldNumAluno.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 2).toString());
             jTextFieldCursoAluno.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 3).toString());
             jLabelCodAlunoAtual.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0).toString());
+            jLabelNumAlunoAtual.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 2).toString());
             
         }        
         
@@ -333,9 +343,10 @@ public class TelaAlunos extends javax.swing.JFrame {
                 aluno.setCodPessoa(pessoa.getCodPessoa());
                 aluno.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
                 aluno.setNomeCurso(jTextFieldCursoAluno.getText());
+                int numero = Integer.parseInt(jLabelNumAlunoAtual.getText());
                 //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
                 pesDao.update(pessoa, codigo);
-                aluDao.update(aluno);
+                aluDao.update(aluno, numero);
                                 
                 limpaCampos();
                 lerTabela();
@@ -416,6 +427,7 @@ public class TelaAlunos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCursoAluno;
     private javax.swing.JLabel jLabelNomeAluno;
     private javax.swing.JLabel jLabelNumAluno;
+    private javax.swing.JLabel jLabelNumAlunoAtual;
     private javax.swing.JPanel jPanelCrudAluno;
     private javax.swing.JPanel jPanelTabelaAluno;
     private javax.swing.JScrollPane jScrollPane1;

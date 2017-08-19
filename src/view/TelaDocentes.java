@@ -298,15 +298,14 @@ public class TelaDocentes extends javax.swing.JFrame {
             aluno.setCodPessoa(Integer.parseInt(jTextFieldCodDocente.getText()));
             aluDao.delete(aluno);
             
+            limpaCampos();
             lerTabela();
         }else{
             JOptionPane.showMessageDialog(null, "Selecione um aluno");
-        }
-        
+        }        
         
         lerTabela();
-        
-        
+               
         
     }//GEN-LAST:event_jButtonExcluirDocenteActionPerformed
 
@@ -346,7 +345,7 @@ public class TelaDocentes extends javax.swing.JFrame {
             pesDao.update(pessoa, codigo);
             docDao.update(docente);
             
-
+            limpaCampos();
             lerTabela();
             
 //            jTableTabelaAlunos.setValueAt(jTextFieldCodAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 0);

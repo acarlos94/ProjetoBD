@@ -238,6 +238,7 @@ public class TelaInstituicao extends javax.swing.JFrame {
             instituicao.setCodInstituicao(Integer.parseInt(jTextFieldCodInstituicao.getText()));
             instiDao.delete(instituicao);        
             
+            limpaCampos();
             lerTabela();
         }else{
             JOptionPane.showMessageDialog(null, "Selecione uma instituição.");

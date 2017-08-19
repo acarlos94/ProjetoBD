@@ -116,8 +116,8 @@ public class AlunoDao {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("DELETE FROM aluno WHERE numAluno = ?");
-            stmt.setInt(1, aluno.getNumAluno()); 
+            stmt = con.prepareStatement("DELETE FROM aluno WHERE codPessoa = ?");
+            stmt.setInt(1, aluno.getCodPessoa());           
           
             
             stmt.executeUpdate();
@@ -131,17 +131,17 @@ public class AlunoDao {
                 
     }
     
-    public void update(Aluno aluno){
+    public void update(Aluno aluno, int numero){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE aluno SET numAluno = ?, nomeCurso = ? WHERE codPessoa = ?");           
+            stmt = con.prepareStatement("UPDATE aluno SET numAluno = ?, nomeCurso = ? WHERE numAluno = ?");           
             //stmt.setInt(1, aluno.getCodPessoa());
             stmt.setInt(1, aluno.getNumAluno());
             stmt.setString(2, aluno.getNomeCurso());
-            stmt.setInt(3, aluno.getCodPessoa());
+            stmt.setInt(3, numero);
             
             stmt.executeUpdate();
             
@@ -160,7 +160,7 @@ public class AlunoDao {
         ResultSet rs = null;
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM aluno WHERE codPessoa = ?, numAluno = ?");
+            stmt = con.prepareStatement("SELECT * FROM aluno WHERE codPessoa = ? AND numAluno = ?");
             stmt.setInt(1, codigo);
             stmt.setInt(2, numero);            
             rs = stmt.executeQuery();

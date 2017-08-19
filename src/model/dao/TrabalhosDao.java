@@ -46,10 +46,10 @@ public class TrabalhosDao {
                 stmt.setInt(1, trabalho.getCodTrabalho());
                 stmt.setString(2, trabalho.getTitulo());
                 stmt.setTimestamp(3, new Timestamp (trabalho.getDataDefesa().getTime()));
+                //stmt.setDate(3, (Date) trabalho.getDataDefesa());
                 stmt.setInt(4, trabalho.getCodPessoaAluno());
                 stmt.setInt(5, trabalho.getNumAluno());
                 stmt.setInt(6, trabalho.getCodPessoaOrientador());
-
 
 
                 stmt.executeUpdate();
@@ -130,7 +130,8 @@ public class TrabalhosDao {
             stmt = con.prepareStatement("UPDATE trabalhoconclusao SET  codTrab = ?, titulo = ?, dataDefesa = ?, codPessoaOrientador = ? where codTrab = ?");        
             stmt.setInt(1, trabalho.getCodTrabalho());
             stmt.setString(2, trabalho.getTitulo());
-            stmt.setDate(3, (Date) trabalho.getDataDefesa());
+            stmt.setTimestamp(3, new Timestamp (trabalho.getDataDefesa().getTime()));
+            //stmt.setDate(3, (Date) trabalho.getDataDefesa());
             stmt.setInt(4, trabalho.getCodPessoaOrientador());
             stmt.setInt(5, codigo);
             

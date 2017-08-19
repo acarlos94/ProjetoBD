@@ -148,10 +148,10 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jButtonSalvarTrabalho" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="jLabelCodTrabalhoAtual" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButtonAtualizarTrabalho" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonExcluirTrabalho" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelCodTrabalhoAtual" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>

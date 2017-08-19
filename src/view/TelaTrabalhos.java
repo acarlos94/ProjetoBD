@@ -187,10 +187,10 @@ public class TelaTrabalhos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonSalvarTrabalho)
+                    .addComponent(jLabelCodTrabalhoAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelCrudTrabalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonAtualizarTrabalho)
-                        .addComponent(jButtonExcluirTrabalho)
-                        .addComponent(jLabelCodTrabalhoAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButtonExcluirTrabalho)))
                 .addContainerGap())
         );
 
@@ -259,28 +259,32 @@ public class TelaTrabalhos extends javax.swing.JFrame {
 //        String data = jDateChooser1.toString();
 //        java.util.Date parsed = sdf.parse(data);
 //	Date sql = new Date(parsed.getTime());
-        TrabalhoConclusao trabalho = new TrabalhoConclusao();
-        TrabalhosDao tdao = new TrabalhosDao();
-        
-        CoOrientacao coOrientacao = new CoOrientacao();
-        CoOrientacaoDao coDao = new CoOrientacaoDao();
+        if (verificaCampos() == true) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+        }else{
+            TrabalhoConclusao trabalho = new TrabalhoConclusao();
+            TrabalhosDao tdao = new TrabalhosDao();
 
-        trabalho.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
-        trabalho.setTitulo(jTextFieldTituloTrabalho.getText());
-        trabalho.setCodPessoaAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
-        trabalho.setCodPessoaOrientador(Integer.parseInt(jTextFieldOrientador.getText()));
-        trabalho.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
-        trabalho.setDataDefesa(jDateChooserDataApresentacao.getDate());
-//trabalho.setDataDefesa(new java.util.Date());
-        
-        coOrientacao.setCodPessoa(Integer.parseInt(jTextFieldOrientador.getText()));
-        coOrientacao.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
-        tdao.create(trabalho);
-        coDao.create(coOrientacao);
+            CoOrientacao coOrientacao = new CoOrientacao();
+            CoOrientacaoDao coDao = new CoOrientacaoDao();
 
-        
-        
-        lerTabela();
+            trabalho.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
+            trabalho.setTitulo(jTextFieldTituloTrabalho.getText());
+            trabalho.setCodPessoaAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
+            trabalho.setCodPessoaOrientador(Integer.parseInt(jTextFieldOrientador.getText()));
+            trabalho.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
+            trabalho.setDataDefesa(jDateChooserDataApresentacao.getDate());
+    //trabalho.setDataDefesa(new java.util.Date());
+
+            coOrientacao.setCodPessoa(Integer.parseInt(jTextFieldOrientador.getText()));
+            coOrientacao.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
+            tdao.create(trabalho);
+            coDao.create(coOrientacao);
+
+
+            limpaCampos();
+            lerTabela();
+        }
 
 //        DefaultTableModel dtmAlunos = (DefaultTableModel)jTableTabelaAlunos.getModel();
 //        Object[] dados = {jTextFieldCodAluno.getText(),jTextFieldNomeAluno.getText(),
@@ -341,25 +345,33 @@ public class TelaTrabalhos extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jTableTabelaTrabalhos.getSelectedRow() != -1) {
             
-            TrabalhoConclusao trabalho = new TrabalhoConclusao();
-            TrabalhosDao trabDao = new TrabalhosDao();
+            if (verificaCampos() == true) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+            }else{
             
-            trabalho.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
-            trabalho.setTitulo(jTextFieldTituloTrabalho.getText());
-            trabalho.setCodPessoaAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
-            trabalho.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
-            trabalho.setCodPessoaOrientador(Integer.parseInt(jTextFieldOrientador.getText()));
-            trabalho.setDataDefesa(jDateChooserDataApresentacao.getDate());
-            int codigo = Integer.parseInt(jLabelCodTrabalhoAtual.getText());
-            
-            trabDao.update(trabalho, codigo);
-           
-            lerTabela();
+                TrabalhoConclusao trabalho = new TrabalhoConclusao();
+                TrabalhosDao trabDao = new TrabalhosDao();
+
+                trabalho.setCodTrabalho(Integer.parseInt(jTextFieldCodTrabalho.getText()));
+                trabalho.setTitulo(jTextFieldTituloTrabalho.getText());
+                trabalho.setCodPessoaAluno(Integer.parseInt(jTextFieldCodAluno.getText()));
+                trabalho.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
+                trabalho.setCodPessoaOrientador(Integer.parseInt(jTextFieldOrientador.getText()));
+                trabalho.setDataDefesa(jDateChooserDataApresentacao.getDate());
+                int codigo = Integer.parseInt(jLabelCodTrabalhoAtual.getText());
+
+                trabDao.update(trabalho, codigo);
+
+                limpaCampos();
+                lerTabela();
+            }
 
 //            jTableTabelaAlunos.setValueAt(jTextFieldCodAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 0);
 //            jTableTabelaAlunos.setValueAt(jTextFieldNomeAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 1);
 //            jTableTabelaAlunos.setValueAt(jTextFieldNumAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 2);
 //            jTableTabelaAlunos.setValueAt(jTextFieldCursoAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 3);
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um trabalho na tabela.");
         }
 
     }//GEN-LAST:event_jButtonAtualizarTrabalhoActionPerformed
@@ -376,11 +388,39 @@ public class TelaTrabalhos extends javax.swing.JFrame {
             jDateChooserDataApresentacao.setDate((java.util.Date) jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),2));
             jTextFieldCodAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 3).toString());
             jTextFieldNumAluno.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 4).toString());
-            jTextFieldOrientador.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),5).toString());      
+            if (jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),5).toString() != null){
+                jTextFieldOrientador.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(),5).toString());
+            }else{
+                jTextFieldOrientador.setText("");
+            }
+            
             jLabelCodTrabalhoAtual.setText(jTableTabelaTrabalhos.getValueAt(jTableTabelaTrabalhos.getSelectedRow(), 0).toString());
         }
     }//GEN-LAST:event_jTableTabelaTrabalhosMouseClicked
 
+    private boolean verificaCampos(){
+        String campoCodigo = jTextFieldCodTrabalho.getText();
+        String campoNome = jTextFieldTituloTrabalho.getText();
+        String campoCodAluno = jTextFieldCodAluno.getText();
+        String campoNumAluno = jTextFieldNumAluno.getText();
+        String campoOrientador = jTextFieldOrientador.getText();
+        //Date campoData = (Date) jDateChooserDataApresentacao.getDate();
+        if (campoCodigo.isEmpty() || campoNome.isEmpty() || campoCodAluno.isEmpty() || campoNumAluno.isEmpty() || campoOrientador.isEmpty() || jDateChooserDataApresentacao.getDate() == null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+ 
+    private void limpaCampos(){
+        jTextFieldCodTrabalho.setText("");
+        jTextFieldTituloTrabalho.setText("");
+        jTextFieldCodAluno.setText("");
+        jTextFieldNumAluno.setText("");
+        jTextFieldOrientador.setText("");
+        jDateChooserDataApresentacao.setDateFormatString("");
+    }
+    
     /**
      * @param args the command line arguments
      */
