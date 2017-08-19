@@ -41,6 +41,7 @@ public class TelaInstituicao extends javax.swing.JFrame {
         jButtonSalvarInstituicao = new javax.swing.JButton();
         jButtonAtualizarInstituicao = new javax.swing.JButton();
         jButtonExcluirInstituicao = new javax.swing.JButton();
+        jLabelCodInstituicaoAtual = new javax.swing.JLabel();
         jPanelTabelaDocente = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableTabelaInstituicao = new javax.swing.JTable();
@@ -95,7 +96,9 @@ public class TelaInstituicao extends javax.swing.JFrame {
                         .addGap(7, 7, 7)
                         .addComponent(jButtonAtualizarInstituicao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonExcluirInstituicao)))
+                        .addComponent(jButtonExcluirInstituicao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabelCodInstituicaoAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanelCrudInstituicaoLayout.setVerticalGroup(
@@ -108,11 +111,12 @@ public class TelaInstituicao extends javax.swing.JFrame {
                     .addComponent(jTextFieldCodInstituicao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelCodigoInstituicao))
                 .addGap(18, 18, 18)
-                .addGroup(jPanelCrudInstituicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonSalvarInstituicao)
+                .addGroup(jPanelCrudInstituicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonSalvarInstituicao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelCrudInstituicaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButtonAtualizarInstituicao)
-                        .addComponent(jButtonExcluirInstituicao)))
+                        .addComponent(jButtonExcluirInstituicao))
+                    .addComponent(jLabelCodInstituicaoAtual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(44, 44, 44))
         );
 
@@ -178,14 +182,20 @@ public class TelaInstituicao extends javax.swing.JFrame {
     private void jButtonSalvarInstituicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarInstituicaoActionPerformed
         // TODO add your handling code here:
         
-        Instituicao instituicao = new Instituicao();
-        InstituicaoDao instiDao = new InstituicaoDao();
+        if (verificaCampos() == true){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+        }else{
         
-        instituicao.setCodInstituicao(Integer.parseInt(jTextFieldCodInstituicao.getText()));
-        instituicao.setNomeInstituicao(jTextFieldNomeInstituicao.getText());
-        instiDao.create(instituicao);
-        
-        lerTabela();
+            Instituicao instituicao = new Instituicao();
+            InstituicaoDao instiDao = new InstituicaoDao();
+
+            instituicao.setCodInstituicao(Integer.parseInt(jTextFieldCodInstituicao.getText()));
+            instituicao.setNomeInstituicao(jTextFieldNomeInstituicao.getText());
+            instiDao.create(instituicao);
+            
+            limpaCampos();
+            lerTabela();
+        }
         
         
         
@@ -230,7 +240,7 @@ public class TelaInstituicao extends javax.swing.JFrame {
             
             lerTabela();
         }else{
-            JOptionPane.showMessageDialog(null, "Selecione um aluno");
+            JOptionPane.showMessageDialog(null, "Selecione uma instituição.");
         }
                
         lerTabela();
@@ -242,6 +252,7 @@ public class TelaInstituicao extends javax.swing.JFrame {
         if (jTableTabelaInstituicao.getSelectedRow() != -1){
             jTextFieldCodInstituicao.setText(jTableTabelaInstituicao.getValueAt(jTableTabelaInstituicao.getSelectedRow(), 0).toString());
             jTextFieldNomeInstituicao.setText(jTableTabelaInstituicao.getValueAt(jTableTabelaInstituicao.getSelectedRow(), 1).toString());
+            jLabelCodInstituicaoAtual.setText(jTableTabelaInstituicao.getValueAt(jTableTabelaInstituicao.getSelectedRow(), 0).toString());
                       
         }
         
@@ -251,24 +262,49 @@ public class TelaInstituicao extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jTableTabelaInstituicao.getSelectedRow() != -1){
             
-            Instituicao instituicao = new Instituicao();
-            InstituicaoDao instiDao = new InstituicaoDao();
+            if (verificaCampos() == true){
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+            }else{
             
-            instituicao.setCodInstituicao(Integer.parseInt(jTextFieldCodInstituicao.getText()));
-            instituicao.setNomeInstituicao(jTextFieldNomeInstituicao.getText());
-            instiDao.update(instituicao);
+                Instituicao instituicao = new Instituicao();
+                InstituicaoDao instiDao = new InstituicaoDao();
 
-            lerTabela();
+                instituicao.setCodInstituicao(Integer.parseInt(jTextFieldCodInstituicao.getText()));
+                instituicao.setNomeInstituicao(jTextFieldNomeInstituicao.getText());
+                int codigo = Integer.parseInt(jLabelCodInstituicaoAtual.getText());
+                instiDao.update(instituicao, codigo);
+
+                limpaCampos();
+                lerTabela();
+            }
             
 //            jTableTabelaAlunos.setValueAt(jTextFieldCodAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 0);
 //            jTableTabelaAlunos.setValueAt(jTextFieldNomeAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 1);
 //            jTableTabelaAlunos.setValueAt(jTextFieldNumAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 2);
 //            jTableTabelaAlunos.setValueAt(jTextFieldCursoAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 3);
 
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma instituição.");
         }
         
     }//GEN-LAST:event_jButtonAtualizarInstituicaoActionPerformed
 
+    private boolean verificaCampos(){
+        String campoCodigo = jTextFieldCodInstituicao.getText();
+        String campoNome = jTextFieldNomeInstituicao.getText();
+        
+        if (campoCodigo.isEmpty() || campoNome.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+ 
+    private void limpaCampos(){
+        jTextFieldCodInstituicao.setText("");
+        jTextFieldNomeInstituicao.setText("");        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -312,6 +348,7 @@ public class TelaInstituicao extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAtualizarInstituicao;
     private javax.swing.JButton jButtonExcluirInstituicao;
     private javax.swing.JButton jButtonSalvarInstituicao;
+    private javax.swing.JLabel jLabelCodInstituicaoAtual;
     private javax.swing.JLabel jLabelCodigoInstituicao;
     private javax.swing.JLabel jLabelNomeInstituicao;
     private javax.swing.JPanel jPanelCrudInstituicao;

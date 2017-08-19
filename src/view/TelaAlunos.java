@@ -214,19 +214,26 @@ public class TelaAlunos extends javax.swing.JFrame {
     private void jButtonSalvarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarAlunoActionPerformed
         // TODO add your handling code here:
         
-        Pessoa pessoa = new Pessoa();
-        PessoaDao pesDao = new PessoaDao();
-        Aluno aluno = new Aluno();
-        AlunoDao aluDao = new AlunoDao();
+        if (verificaCampos() == true){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+        }else{
         
-        pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
-        pessoa.setNomePessoa(jTextFieldNomeAluno.getText());      
-        pesDao.create(pessoa);
-        
-        aluno.setCodPessoa(pessoa.getCodPessoa());
-        aluno.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
-        aluno.setNomeCurso(jTextFieldCursoAluno.getText());
-        aluDao.create(aluno);
+            Pessoa pessoa = new Pessoa();
+            PessoaDao pesDao = new PessoaDao();
+            Aluno aluno = new Aluno();
+            AlunoDao aluDao = new AlunoDao();
+
+            pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
+            pessoa.setNomePessoa(jTextFieldNomeAluno.getText());      
+            pesDao.create(pessoa);
+
+            aluno.setCodPessoa(pessoa.getCodPessoa());
+            aluno.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
+            aluno.setNomeCurso(jTextFieldCursoAluno.getText());
+            aluDao.create(aluno);
+            
+            limpaCampos();
+        }
         
         lerTabela();
         
@@ -279,6 +286,7 @@ public class TelaAlunos extends javax.swing.JFrame {
             aluno.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
             aluDao.delete(aluno);
             
+            limpaCampos();
             lerTabela();
         }else{
             JOptionPane.showMessageDialog(null, "Selecione um aluno");
@@ -300,42 +308,69 @@ public class TelaAlunos extends javax.swing.JFrame {
             jTextFieldCursoAluno.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 3).toString());
             jLabelCodAlunoAtual.setText(jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0).toString());
             
-        }
+        }        
         
     }//GEN-LAST:event_jTableTabelaAlunosMouseClicked
-
+    
     private void jButtonAtualizarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAtualizarAlunoActionPerformed
         // TODO add your handling code here:
         if (jTableTabelaAlunos.getSelectedRow() != -1){
             
-            Pessoa pessoa = new Pessoa();
-            PessoaDao pesDao = new PessoaDao();
-            Aluno aluno = new Aluno();
-            AlunoDao aluDao = new AlunoDao();
+            if (verificaCampos() == true) {
+                JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+            }else{
+            
+                Pessoa pessoa = new Pessoa();
+                PessoaDao pesDao = new PessoaDao();
+                Aluno aluno = new Aluno();
+                AlunoDao aluDao = new AlunoDao();
 
-            pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
-            pessoa.setNomePessoa(jTextFieldNomeAluno.getText());
-            //pessoa.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
-            int codigo = Integer.parseInt(jLabelCodAlunoAtual.getText());
+                pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodAluno.getText()));
+                pessoa.setNomePessoa(jTextFieldNomeAluno.getText());
+                //pessoa.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
+                int codigo = Integer.parseInt(jLabelCodAlunoAtual.getText());
 
-            aluno.setCodPessoa(pessoa.getCodPessoa());
-            aluno.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
-            aluno.setNomeCurso(jTextFieldCursoAluno.getText());
-            //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
-            aluDao.update(aluno);
-            pesDao.update(pessoa, codigo);
-
-            lerTabela();
+                aluno.setCodPessoa(pessoa.getCodPessoa());
+                aluno.setNumAluno(Integer.parseInt(jTextFieldNumAluno.getText()));
+                aluno.setNomeCurso(jTextFieldCursoAluno.getText());
+                //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
+                pesDao.update(pessoa, codigo);
+                aluDao.update(aluno);
+                                
+                limpaCampos();
+                lerTabela();
+            }
             
 //            jTableTabelaAlunos.setValueAt(jTextFieldCodAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 0);
 //            jTableTabelaAlunos.setValueAt(jTextFieldNomeAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 1);
 //            jTableTabelaAlunos.setValueAt(jTextFieldNumAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 2);
 //            jTableTabelaAlunos.setValueAt(jTextFieldCursoAluno.getText(), jTableTabelaAlunos.getSelectedRow(), 3);
 
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha na tabela.");
         }
         
     }//GEN-LAST:event_jButtonAtualizarAlunoActionPerformed
 
+    private boolean verificaCampos(){
+        String campoCodigo = jTextFieldCodAluno.getText();
+        String campoNome = jTextFieldNomeAluno.getText();
+        String campoNumero = jTextFieldNumAluno.getText();
+        String campoCurso = jTextFieldCursoAluno.getText();
+        if (campoCodigo.isEmpty() || campoNome.isEmpty() || campoNumero.isEmpty() || campoCurso.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+ 
+    private void limpaCampos(){
+        jTextFieldCodAluno.setText("");
+        jTextFieldNomeAluno.setText("");
+        jTextFieldNumAluno.setText("");
+        jTextFieldCursoAluno.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */

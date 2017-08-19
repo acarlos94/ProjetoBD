@@ -116,8 +116,8 @@ public class AlunoDao {
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("DELETE FROM aluno WHERE codPessoa = ?");
-            stmt.setInt(1, aluno.getCodPessoa()); 
+            stmt = con.prepareStatement("DELETE FROM aluno WHERE numAluno = ?");
+            stmt.setInt(1, aluno.getNumAluno()); 
           
             
             stmt.executeUpdate();

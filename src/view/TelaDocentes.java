@@ -227,21 +227,27 @@ public class TelaDocentes extends javax.swing.JFrame {
     private void jButtonSalvarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarDocenteActionPerformed
         // TODO add your handling code here:
         
-        Pessoa pessoa = new Pessoa();
-        PessoaDao pesDao = new PessoaDao();
-        Docente docente = new Docente();
-        DocenteDao docDao = new DocenteDao();
+        if (verificaCampos() == true){
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+        }else{
         
-        pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodDocente.getText()));
-        pessoa.setNomePessoa(jTextFieldNomeDocente.getText());      
-        pesDao.create(pessoa);
-        
-        docente.setCodPessoa(pessoa.getCodPessoa());
-        docente.setCodInstituicao(Integer.parseInt(jTextFieldNumInstituicao.getText()));
-        docente.setNomeDepartamento(jTextFieldNomeDepartamento.getText());
-        docDao.create(docente);
-        
-        lerTabela();
+            Pessoa pessoa = new Pessoa();
+            PessoaDao pesDao = new PessoaDao();
+            Docente docente = new Docente();
+            DocenteDao docDao = new DocenteDao();
+
+            pessoa.setCodPessoa(Integer.parseInt(jTextFieldCodDocente.getText()));
+            pessoa.setNomePessoa(jTextFieldNomeDocente.getText());      
+            pesDao.create(pessoa);
+
+            docente.setCodPessoa(pessoa.getCodPessoa());
+            docente.setCodInstituicao(Integer.parseInt(jTextFieldNumInstituicao.getText()));
+            docente.setNomeDepartamento(jTextFieldNomeDepartamento.getText());
+            docDao.create(docente);
+
+            limpaCampos();
+            lerTabela();
+        }
         
         
         
@@ -332,13 +338,14 @@ public class TelaDocentes extends javax.swing.JFrame {
             
 
             docente.setCodPessoa(pessoa.getCodPessoa());
-            //docente.setNumAluno(Integer.parseInt(jTextFieldNumInstituicao.getText()));
+            docente.setCodInstituicao(Integer.parseInt(jTextFieldNumInstituicao.getText()));
             docente.setNomeDepartamento(jTextFieldNomeDepartamento.getText());
             //aluno.setCodPessoa((int) jTableTabelaAlunos.getValueAt(jTableTabelaAlunos.getSelectedRow(), 0));
             int codigo = Integer.parseInt(jLabelCodDocenteAtual.getText());
             
-            docDao.update(docente);
             pesDao.update(pessoa, codigo);
+            docDao.update(docente);
+            
 
             lerTabela();
             
@@ -355,6 +362,25 @@ public class TelaDocentes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableTabelaDocentesKeyReleased
 
+    private boolean verificaCampos(){
+        String campoCodigo = jTextFieldCodDocente.getText();
+        String campoNome = jTextFieldNomeDocente.getText();
+        String campoNumero = jTextFieldNumInstituicao.getText();
+        String campoDepartamento = jTextFieldNomeDepartamento.getText();
+        if (campoCodigo.isEmpty() || campoNome.isEmpty() || campoNumero.isEmpty() || campoDepartamento.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+ 
+    private void limpaCampos(){
+        jTextFieldCodDocente.setText("");
+        jTextFieldNomeDocente.setText("");
+        jTextFieldNomeDepartamento.setText("");
+        jTextFieldNumInstituicao.setText("");
+    }
+    
     /**
      * @param args the command line arguments
      */

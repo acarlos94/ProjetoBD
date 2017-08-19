@@ -35,7 +35,7 @@ public class InstituicaoDao {
                         
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com suceeso!");
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar: "+ex);
         }finally{
@@ -95,20 +95,20 @@ public class InstituicaoDao {
                 
     }
     
-    public void update(Instituicao instituicao){
+    public void update(Instituicao instituicao, int codigo){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE instituicao SET nomeInstituicao = ? WHERE codInstituicao = ?");           
-            //stmt.setInt(1, aluno.getCodPessoa());
-            stmt.setString(1, instituicao.getNomeInstituicao());
-            stmt.setInt(2, instituicao.getCodInstituicao());
+            stmt = con.prepareStatement("UPDATE instituicao SET codInstituicao = ?, nomeInstituicao = ? WHERE codInstituicao = ?");           
+            stmt.setInt(1, instituicao.getCodInstituicao());
+            stmt.setString(2, instituicao.getNomeInstituicao());
+            stmt.setInt(3, codigo);
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Atualizado com suceeso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar: "+ex);
         }finally{
