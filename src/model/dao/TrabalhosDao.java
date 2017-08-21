@@ -29,29 +29,38 @@ public class TrabalhosDao {
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
-        PreparedStatement st = null;
         
-        try {
-            
-            stmt = con.prepareStatement("INSERT INTO trabalhoConclusao(codTrab, titulo, dataDefesa, codPessoaAluno, numAluno, codPessoaOrientador) values (?,?,?,?,?,?)");
-           
-            stmt.setInt(1, trabalho.getCodTrabalho());
-            stmt.setString(2, trabalho.getTitulo());
-            stmt.setTimestamp(3, new Timestamp (trabalho.getDataDefesa().getTime()));
-            stmt.setInt(4, trabalho.getCodPessoaAluno());
-            stmt.setInt(5, trabalho.getNumAluno());
-            stmt.setInt(6, trabalho.getCodPessoaOrientador());
-            
-          
-            
-            stmt.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Salvo com suceeso!");
+        DocenteDao docDao = new DocenteDao();
+        AlunoDao aluDao = new AlunoDao();
         
+        if (docDao.pesquisarDocente(trabalho.getCodPessoaOrientador()) == null){
+            JOptionPane.showMessageDialog(null, "Não existe docente com esse código cadastrado no sistema.");
+        }else if (aluDao.pesquisarAluno(trabalho.getCodPessoaAluno(), trabalho.getNumAluno()) == null){
+            JOptionPane.showMessageDialog(null, "Aluno não cadastrado no sistema.");
+        }else{
         
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao salvar: "+ex);
-        }finally{
-            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
+            try {
+
+                stmt = con.prepareStatement("INSERT INTO trabalhoConclusao(codTrab, titulo, dataDefesa, codPessoaAluno, numAluno, codPessoaOrientador) values (?,?,?,?,?,?)");
+
+                stmt.setInt(1, trabalho.getCodTrabalho());
+                stmt.setString(2, trabalho.getTitulo());
+                stmt.setTimestamp(3, new Timestamp (trabalho.getDataDefesa().getTime()));
+                //stmt.setDate(3, (Date) trabalho.getDataDefesa());
+                stmt.setInt(4, trabalho.getCodPessoaAluno());
+                stmt.setInt(5, trabalho.getNumAluno());
+                stmt.setInt(6, trabalho.getCodPessoaOrientador());
+
+
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
+
+
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao salvar: "+ex);
+            }finally{
+                ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
+            }
         }
     }
     
@@ -68,13 +77,13 @@ public class TrabalhosDao {
             rs = stmt.executeQuery();
             
             while (rs.next()){
-                ArrayList<String> tupla = new ArrayList();
+                ArrayList<Object> tupla = new ArrayList();
                 tupla.add(rs.getString("codTrab"));
                 tupla.add(rs.getString("titulo"));      
-                tupla.add(rs.getString("dataDefesa"));
-                tupla.add(rs.getString("codPessoaOrientador"));
-                tupla.add(rs.getString("numAluno"));
+                tupla.add(rs.getDate("dataDefesa"));
                 tupla.add(rs.getString("codPessoaAluno"));
+                tupla.add(rs.getString("numAluno"));                
+                tupla.add(rs.getString("codPessoaOrientador"));
                 
      
                 tuplas.add(tupla);
@@ -112,5 +121,31 @@ public class TrabalhosDao {
                 
     }
      
+    public void update(TrabalhoConclusao trabalho, int codigo){
+        
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        
+        try {
+            stmt = con.prepareStatement("UPDATE trabalhoconclusao SET  codTrab = ?, titulo = ?, dataDefesa = ?, codPessoaOrientador = ? where codTrab = ?");        
+            stmt.setInt(1, trabalho.getCodTrabalho());
+            stmt.setString(2, trabalho.getTitulo());
+            stmt.setTimestamp(3, new Timestamp (trabalho.getDataDefesa().getTime()));
+            //stmt.setDate(3, (Date) trabalho.getDataDefesa());
+            stmt.setInt(4, trabalho.getCodPessoaOrientador());
+            stmt.setInt(5, codigo);
+            
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
+        }
+               
+    }
+    
+       
      
 }

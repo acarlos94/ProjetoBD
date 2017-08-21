@@ -36,7 +36,7 @@ public class AlunoDao {
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com suceeso!");
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar: "+ex);
         }finally{
@@ -117,7 +117,7 @@ public class AlunoDao {
         
         try {
             stmt = con.prepareStatement("DELETE FROM aluno WHERE codPessoa = ?");
-            stmt.setInt(1, aluno.getCodPessoa()); 
+            stmt.setInt(1, aluno.getCodPessoa());           
           
             
             stmt.executeUpdate();
@@ -131,26 +131,54 @@ public class AlunoDao {
                 
     }
     
-    public void update(Aluno aluno){
+    public void update(Aluno aluno, int numero){
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         
         try {
-            stmt = con.prepareStatement("UPDATE aluno SET numAluno = ?, nomeCurso = ? WHERE codPessoa = ?");           
+            stmt = con.prepareStatement("UPDATE aluno SET numAluno = ?, nomeCurso = ? WHERE numAluno = ?");           
             //stmt.setInt(1, aluno.getCodPessoa());
             stmt.setInt(1, aluno.getNumAluno());
             stmt.setString(2, aluno.getNomeCurso());
-            stmt.setInt(3, aluno.getCodPessoa());
+            stmt.setInt(3, numero);
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Atualizado com suceeso!");
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar: "+ex);
         }finally{
             ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
         }
+                
+    }
+    
+    public Aluno pesquisarAluno(int codigo, int numero){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM aluno WHERE codPessoa = ? AND numAluno = ?");
+            stmt.setInt(1, codigo);
+            stmt.setInt(2, numero);            
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                Aluno aluno = new Aluno();
+                aluno.setCodPessoa(rs.getInt("codPessoa"));
+                aluno.setNumAluno(rs.getInt("numAluno"));
+                aluno.setNomeCurso(rs.getString("nomeCurso"));
+                return aluno;
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Aluno não encontrado. " +ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt, rs);
+        }
+        return null;
                 
     }
     

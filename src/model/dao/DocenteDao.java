@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import model.beans.Aluno;
 import model.beans.Docente;
 
 
@@ -34,7 +33,7 @@ public class DocenteDao {
             
             stmt.executeUpdate();
             
-            JOptionPane.showMessageDialog(null, "Salvo com suceeso!");
+            JOptionPane.showMessageDialog(null, "Salvo com sucesso!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao salvar: "+ex);
         }finally{
@@ -94,7 +93,55 @@ public class DocenteDao {
         }finally{
             ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
         }
+                
+    }
+    
+    public void update(Docente docente){
         
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
         
+        try {
+            stmt = con.prepareStatement("UPDATE docente SET codInstituicao = ?, nomeDepartamento = ? where codPessoa = ?");        
+            stmt.setInt(1, docente.getCodInstituicao());
+            stmt.setString(2, docente.getNomeDepartamento());
+            stmt.setInt(3, docente.getCodPessoa());
+            
+            stmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar: "+ex);
+        }finally{
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt);
+        }
+               
+    }
+    
+    public Docente pesquisarDocente(int codigo){
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+            stmt = con.prepareStatement("SELECT * FROM docente WHERE codPessoa = ?");
+            stmt.setInt(1, codigo);                       
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                Docente docente = new Docente();
+                docente.setCodPessoa(rs.getInt("codPessoa"));
+                docente.setCodInstituicao(rs.getInt("codInstituicao"));
+                docente.setNomeDepartamento(rs.getString("nomeDepartamento"));                
+                return docente;
+            }
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Docente não encontrado. " +ex);
+        } finally {
+            ConnectionFactory.closeConnection(con, (com.mysql.jdbc.PreparedStatement) stmt, rs);
+        }
+        return null;
+                
     }
 }

@@ -74,7 +74,7 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabelDepartamento" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldCursoAluno" max="32767" attributes="0"/>
+                                  <Component id="jTextFieldNomeDepartamento" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabelNomeDocente" min="-2" max="-2" attributes="0"/>
@@ -90,6 +90,8 @@
                           <Component id="jButtonAtualizarDocente" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonExcluirDocente" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabelCodDocenteAtual" min="-2" pref="61" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -117,17 +119,25 @@
                               <Component id="jLabelNumInstituicao" min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabelDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTextFieldCursoAluno" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jTextFieldNomeDepartamento" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonSalvarDocente" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jButtonAtualizarDocente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonExcluirDocente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jButtonSalvarDocente" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jButtonAtualizarDocente" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonExcluirDocente" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="jLabelCodDocenteAtual" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="14" max="32767" attributes="0"/>
@@ -162,7 +172,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNomeDocente">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldCursoAluno">
+        <Component class="javax.swing.JTextField" name="jTextFieldNomeDepartamento">
         </Component>
         <Component class="javax.swing.JButton" name="jButtonSalvarDocente">
           <Properties>
@@ -187,6 +197,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonExcluirDocenteActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelCodDocenteAtual">
         </Component>
       </SubComponents>
     </Container>

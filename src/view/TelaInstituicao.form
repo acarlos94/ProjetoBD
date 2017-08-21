@@ -72,6 +72,8 @@
                           <Component id="jButtonAtualizarInstituicao" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jButtonExcluirInstituicao" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="jLabelCodInstituicaoAtual" min="-2" pref="69" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="38" max="32767" attributes="0"/>
@@ -89,12 +91,13 @@
                       <Component id="jLabelCodigoInstituicao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jButtonSalvarInstituicao" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jButtonSalvarInstituicao" max="32767" attributes="0"/>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jButtonAtualizarInstituicao" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonExcluirInstituicao" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="jLabelCodInstituicaoAtual" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               </Group>
@@ -139,6 +142,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonExcluirInstituicaoActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabelCodInstituicaoAtual">
         </Component>
       </SubComponents>
     </Container>
