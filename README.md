@@ -1,11 +1,9 @@
 # Projeto de Fundamentos de Banco de Dados (2017.1)
 <strong>CRUD Java+MySQL: Projeto da disciplina de Fundamentos de Banco de Dados</strong>
-
 Ferramentas:
 <ul>
   <li>NetBeans 8.2</li>
   <li>MySQL Workbench 6.3</li>
-  <li></li>
 </ul>
 Requisitos:
 <ul>
